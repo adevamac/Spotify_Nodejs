@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IrohBeats</title>
+    <link rel="stylesheet" href="/styles2.css">
+    <style>
+        .song-item h3, .song-item p {
+            margin: 5px 0;
+            color: white;
+        }
+
+        .song-item p {
+            text-decoration: none; /* Ensure no underline */
+            color: white; /* White text for artist name */
+        }
+
+        /* To ensure no inherited link styles */
+        .song-item a {
+            text-decoration: none; /* Remove underline from the entire link */
+            color: inherit; /* Inherit color from parent elements */
+        }
+
+        /* Additional styling for hover if needed */
+        .song-item a:hover h3, .song-item a:hover p {
+            color: #9D79E9; /* Lighter purple on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IrohBeats</h1>
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/library">Library</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="playlists">
+                <h2>Your Songs</h2>
+                <div class="song-grid">
+                    <% songs.forEach(song => { %>
+                        <a href="/song/<%= song.Id %>" class="song-item"> <!-- Song Link -->
+                            <img src="<%= song.image %>" alt="<%= song.title %> Cover" />
+                            <h3><%= song.title %></h3>
+                            <p><%= song.artist %></p> <!-- Artist name in white -->
+                            <div class="play-button">
+                                &#9658; <!-- Play button icon -->
+                            </div>
+                        </a>
+                    <% }) %>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 IrohBeats</p>
+        </footer>
+    </div>
+</body>
+</html>

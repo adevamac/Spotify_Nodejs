@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Songs - IrohBeats</title>
+    <link rel="stylesheet" href="/styles2.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E1A47; /* Dark Purple */
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Suggestions styles */
+        .suggestions {
+            background-color: #4A306D; /* Darker purple for suggestions */
+            border-radius: 5px; /* Rounded corners */
+            position: relative; /* Relative positioning */
+            z-index: 1000; /* On top of other elements */
+            max-height: 200px; /* Max height for the dropdown */
+            overflow-y: auto; /* Scroll if needed */
+            width: 100%; /* Match the width of the results section */
+            margin-top: 5px; /* Space below the input */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            display: none; /* Initially hidden */
+        }
+
+        .suggestion-item {
+            padding: 10px; /* Padding for suggestion items */
+            cursor: pointer; /* Pointer cursor on hover */
+            color: white; /* Text color */
+            transition: background-color 0.3s; /* Transition for hover effect */
+            display: flex; /* Flexbox for item layout */
+            align-items: center; /* Center items vertically */
+        }
+
+        .suggestion-item img {
+            width: 40px; /* Thumbnail width */
+            height: 40px; /* Thumbnail height */
+            border-radius: 5px; /* Rounded corners for image */
+            margin-right: 10px; /* Space between image and text */
+        }
+
+        .suggestion-item:hover {
+            background-color: #743DA2; /* Lighter purple on hover */
+        }
+
+        /* Search form styles */
+        #search-form {
+            margin-bottom: 30px; /* Space below the form */
+            display: flex; /* Flexbox for input and button alignment */
+            justify-content: center; /* Center the form */
+            position: relative; /* For absolute positioning of suggestions */
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            width: 300px; /* Width of the search input */
+            margin-right: 10px; /* Space between input and button */
+            background: #555; /* Dark background for input */
+            color: white; /* White text color */
+        }
+
+        button {
+            background-color: #5D3FD3; /* Button color */
+            color: white; /* Text color */
+            padding: 12px 20px; /* Button padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners for button */
+            cursor: pointer; /* Pointer cursor */
+            font-size: 18px; /* Larger text for button */
+            transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+        }
+
+        button:hover {
+            background-color: #743DA2; /* Lighter Purple on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        /* Style for artist name */
+        .artist-name {
+            color: white; /* Artist name color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IrohBeats</h1>
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/library">Library</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Search for Songs</h2>
+            <div>
+                <form action="/search" method="GET" id="search-form">
+                    <input type="text" name="q" id="search-input" placeholder="Search by title or artist" required>
+                    <button type="submit">Search</button>
+                </form>
+                <div id="suggestions" class="suggestions"></div> <!-- Suggestions container -->
+            </div>
+
+            <div id="results-section">
+                <% if (songs && songs.length > 0) { %>
+                    <h2>Search Results</h2>
+                    <div class="song-grid">
+                        <% songs.forEach(song => { %>
+                            <a href="/song/<%= song.Id %>" class="song-item"> <!-- Song Link -->
+                                <img src="<%= song.image %>" alt="<%= song.title %> Cover" />
+                                <h3><%= song.title %></h3>
+                                <p class="artist-name"><%= song.artist %></p> <!-- Artist Name with Class -->
+                                <div class="play-button">
+                                    &#9658; <!-- Play button icon -->
+                                </div>
+                            </a>
+                        <% }) %>
+                    </div>
+                <% } else if (songs && songs.length === 0) { %>
+                    <p>No songs found matching your search.</p>
+                <% } %>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 IrohBeats</p>
+        </footer>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const suggestionsContainer = document.getElementById('suggestions');
+
+        // Function to fetch suggestions based on user input
+        searchInput.addEventListener('input', async () => {
+            const query = searchInput.value;
+
+            if (query.length < 1) {
+                suggestionsContainer.style.display = 'none'; // Hide suggestions if input is empty
+                return;
+            }
+
+            // Fetch suggestions from the server
+            const response = await fetch(`/search/suggestions?q=${query}`);
+            const suggestions = await response.json();
+
+            // Clear previous suggestions
+            suggestionsContainer.innerHTML = '';
+
+            if (suggestions.length > 0) {
+                suggestions.forEach(song => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    // Include image, title, and artist name
+                    suggestionItem.innerHTML = `<img src="${song.image}" alt="${song.title} Cover"/> 
+                        <div>
+                            <strong>${song.title}</strong><br>
+                            <span class="artist-name">${song.artist}</span> <!-- Added Class -->
+                        </div>`;
+                    suggestionItem.addEventListener('click', () => {
+                        // Redirect to the song detail page on click
+                        window.location.href = `/song/${song.Id}`; // Directly play the song
+                    });
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+                suggestionsContainer.style.display = 'block'; // Show suggestions
+            } else {
+                suggestionsContainer.style.display = 'none'; // Hide if no suggestions
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Library - IrohBeats</title>
+    <link rel="stylesheet" href="/styles2.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Library</h1>
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/library">Library</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <button onclick="window.location.href='/add'" class="add-song-button">Add New Song</button>
+            <section class="playlists">
+                <h2>All Songs</h2>
+                <div class="song-grid">
+                    <% songs.forEach(song => { %>
+                        <div class="song-item">
+                            <img src="<%= song.image %>" alt="<%= song.title %> Cover" />
+                            <h3><%= song.title %></h3>
+                            <div class="song-actions">
+                                <button onclick="window.location.href='/edit/<%= song.Id %>'" class="edit-button">Edit</button>
+                                <button onclick="window.location.href='/delete/<%= song.Id %>'" class="delete-button">Delete</button>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 IrohBeats</p>
+        </footer>
+    </div>
+</body>
+</html>

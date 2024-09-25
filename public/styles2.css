@@ -1,0 +1,237 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2E1A47; /* Dark Purple */
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+header {
+    background-color: #5D3FD3; /* Medium Purple */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header nav a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Album Art and Song Info */
+.song-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.album-art {
+    flex: 1;
+}
+
+.album-art img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+.song-info {
+    flex: 2;
+    text-align: left;
+}
+
+.song-info h1 {
+    font-size: 36px;
+    margin: 0;
+    color: #FFFFFF;
+}
+
+.song-info h2 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #9D79E9; /* Lighter Purple for artist */
+}
+
+.song-info p {
+    font-size: 18px;
+    color: #D1C4E9; /* Even lighter purple for additional info */
+}
+
+/* Audio Player */
+.audio-player {
+    margin: 40px 0;
+    background-color: #5D3FD3; /* Medium Purple */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+audio {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+}
+
+/* Lyrics Section */
+.lyrics {
+    background-color: #4A306D; /* Darker Purple */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.lyrics p {
+    white-space: pre-wrap; /* Preserve line breaks */
+    color: #D1C4E9; /* Lighter purple for lyrics text */
+    font-size: 16px;
+}
+
+/* Back Link */
+.back-link {
+    display: block;
+    margin: 40px 0;
+    color: #9D79E9; /* Lighter purple for back link */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #5D3FD3; /* Medium Purple */
+    color: white;
+    text-align: center;
+}
+
+/* Keep the home styles intact */
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid */
+    gap: 15px; /* Space between items */
+    margin-top: 20px;
+}
+
+.song-item {
+    position: relative; /* To position the play button */
+    background-color: #743DA2; /* Lighter Purple */
+    padding: 10px; /* Padding for items */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+    transition: transform 0.2s; /* Animation for hover effect */
+    cursor: pointer; 
+}
+
+
+.song-item:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.song-item img {
+    width: 100%; /* Fit the width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Rounded image corners */
+}
+
+.song-item h3 {
+    font-size: 14px; /* Smaller font size */
+    margin-top: 5px; /* Space above title */
+    color: white; /* Change title color to white */
+}
+
+/* Styling for the play button */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px; /* Size of the play icon */
+    color: white;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.2s;
+}
+
+.song-item:hover .play-button {
+    opacity: 1; /* Show the play button on hover */
+}
+
+.add-song-button {
+    background-color: #5D3FD3; /* Medium Purple */
+    color: white;
+    border: none;
+    padding: 12px 20px; /* Increased padding for a larger button */
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px 0;
+    font-size: 18px; /* Larger font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+.add-song-button:hover {
+    background-color: #743DA2; /* Lighter Purple */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.add-song-button:active {
+    transform: translateY(0); /* Button back to original position on click */
+}
+
+.edit-button,
+.delete-button {
+    background-color: #9D79E9; /* Lighter Purple for buttons */
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Reduced padding for smaller buttons */
+    border-radius: 5px;
+    cursor: pointer; /* Pointer cursor */
+    margin: 5px; /* Space between buttons */
+    font-size: 14px; /* Smaller font size */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.edit-button:hover {
+    background-color: #7E5BC4; /* Darker Purple on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.delete-button:hover {
+    background-color: #FF4D4D; /* Red for delete button on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.edit-button:active,
+.delete-button:active {
+    transform: translateY(0); /* Reset position on click */
+}

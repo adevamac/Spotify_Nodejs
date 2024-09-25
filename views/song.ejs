@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= song.title %> by <%= song.artist %></title>
+    <link rel="stylesheet" href="/styles2.css"> <!-- Link to the stylesheet -->
+</head>
+<body>
+
+    <header>
+        <h1>IrohBeats</h1>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/library">Library</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="song-details">
+            <!-- Album Art -->
+            <div class="album-art">
+                <img src="<%= song.image %>" alt="<%= song.title %> cover">
+            </div>
+
+            <!-- Song Info -->
+            <div class="song-info">
+                <h1><%= song.title %></h1>
+                <h2>by <%= song.artist %></h2>
+                <p>Album: <%= song.album %></p>
+                <p>Release Date: <%= song.release_date %></p>
+            </div>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <audio controls autoplay>
+                <source src="<%= song.file_path %>" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- Lyrics -->
+        <div class="lyrics">
+            <h3>Lyrics</h3>
+            <p><%= song.lyrics %></p>
+        </div>
+
+        <!-- Back Link -->
+        <a href="/home" class="back-link">Back to Playlist</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 IrohBeats</p>
+    </footer>
+
+</body>
+</html>
